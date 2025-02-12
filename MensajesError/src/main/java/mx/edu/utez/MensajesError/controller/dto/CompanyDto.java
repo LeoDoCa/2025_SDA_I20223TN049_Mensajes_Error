@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import lombok.*;
 import mx.edu.utez.MensajesError.models.Company;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,6 +17,6 @@ public class CompanyDto {
     private String correo;
 
     public Company toEntity() {
-        return new Company(razon_social, rfc, telefono, contacto, correo);
+        return new Company(UUID.randomUUID(), razon_social, rfc, telefono, contacto, correo);
     }
 }

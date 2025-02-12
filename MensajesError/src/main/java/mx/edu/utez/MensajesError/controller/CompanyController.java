@@ -7,6 +7,8 @@ import mx.edu.utez.MensajesError.service.CompanyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/api/company")
@@ -33,11 +35,11 @@ public class CompanyController {
         return service.update(dto.toEntity());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse> getById(@PathVariable Long id) { return service.findById(id);}
+    @GetMapping("/{uuid}")
+    public ResponseEntity<ApiResponse> getByUuid(@PathVariable UUID uuid) { return service.findByUuid(uuid);}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse> delete(@PathVariable Long id){
-        return service.delete(id);
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<ApiResponse> delete(@PathVariable UUID uuid){
+        return service.delete(uuid);
     }
 }

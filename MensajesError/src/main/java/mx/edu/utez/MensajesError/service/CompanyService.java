@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -31,6 +32,13 @@ public class CompanyService {
                 HttpStatus.OK);
     }
 
+    @Transactional(readOnly = true)
+    public ResponseEntity<ApiResponse> findByUuid(UUID uuid){
+        return new ResponseEntity<>(
+                new ApiResponse(repository.findByUuid(uuid), HttpStatus.OK),
+                HttpStatus.OK);
+    }
+
     @Transactional(rollbackFor = {SQLException.class})
     public ResponseEntity<ApiResponse> save(Company company) {
         company = repository.saveAndFlush(company);
@@ -44,8 +52,8 @@ public class CompanyService {
     }
 
     @Transactional
-    public ResponseEntity<ApiResponse> delete(Long id){
-        repository.deleteById(id);
-        return new ResponseEntity<>(new ApiResponse(id, HttpStatus.OK), HttpStatus.OK);
+    public ResponseEntity<ApiResponse> delete(UUID uuid){
+        repository.deleteByUuid(uuid);
+        return new ResponseEntity<>(new ApiResponse(uuid, HttpStatus.OK), HttpStatus.OK);
     }
 }
